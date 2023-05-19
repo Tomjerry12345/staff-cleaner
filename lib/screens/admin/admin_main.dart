@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:staff_cleaner/screens/admin/tambah-data/tambah_data_customer.dart';
+import 'package:staff_cleaner/values/navigate_utils.dart';
 
 import '../../component/bottom-bar/bottom_bar_admin_component.dart';
 import '../../values/color.dart';
@@ -15,6 +17,7 @@ class AdminMain extends StatefulWidget {
 
 class _AdminMainState extends State<AdminMain> {
   final _pageController = PageController(initialPage: 0);
+  int _selectedIndex = 0;
 
   int maxCount = 2;
 
@@ -32,6 +35,12 @@ class _AdminMainState extends State<AdminMain> {
     const ListUserStaff(),
   ];
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -42,19 +51,19 @@ class _AdminMainState extends State<AdminMain> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: PageView(
-          controller: _pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: List.generate(
-              bottomBarPages.length, (index) => bottomBarPages[index]),
-        ),
+        body: bottomBarPages.elementAt(_selectedIndex),
         extendBody: true,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            navigatePush(TambahDataCustomer());
+          },
           backgroundColor: primaryColor,
           child: Icon(Icons.add),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: const BottomBarAdmin());
+        bottomNavigationBar: BottomBarAdmin(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
+        ));
   }
 }

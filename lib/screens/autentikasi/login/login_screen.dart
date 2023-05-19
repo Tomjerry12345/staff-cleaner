@@ -71,6 +71,8 @@ class LoginScreen extends StatelessWidget {
 
                       if (getEmail == "admin" && getPassword == "555") {
                         navigatePushAndRemove(const AdminMain());
+                      } else if (getEmail == "user" && getPassword == "555") {
+                        navigatePushAndRemove(const StaffMain());
                       } else {
                         showToast("email atau password salah");
                       }

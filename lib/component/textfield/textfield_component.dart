@@ -4,7 +4,13 @@ class TextfieldComponent extends StatelessWidget {
   final String hintText;
   final Function(String)? onChanged;
   final TextEditingController? controller;
-  const TextfieldComponent({super.key, this.hintText = "", this.onChanged, this.controller});
+  final Color color;
+  const TextfieldComponent(
+      {super.key,
+      this.hintText = "",
+      this.onChanged,
+      this.controller,
+      this.color = Colors.white70});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,7 @@ class TextfieldComponent extends StatelessWidget {
           filled: true,
           hintStyle: TextStyle(color: Colors.grey[800]),
           hintText: hintText,
-          fillColor: Colors.white70),
+          fillColor: color),
     );
   }
 }

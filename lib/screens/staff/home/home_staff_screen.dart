@@ -3,6 +3,7 @@ import 'package:staff_cleaner/component/slider/corousel_staff_component.dart';
 import 'package:staff_cleaner/values/screen_utils.dart';
 
 import '../../../component/text/text_component.dart';
+import '../../../values/data_testing.dart';
 import '../../../values/widget_utils.dart';
 
 class HomeStaffScreen extends StatefulWidget {
@@ -26,15 +27,18 @@ class _HomeStaffScreenState extends State<HomeStaffScreen> {
               SizedBox(
                   height: 0.26.h,
                   width: 1.0.w,
-                  child: const Image(
-                      image: AssetImage('assets/images/bg_home_staff.png'))),
-              Positioned(
-                  top: 0.1.h,
-                  left: 16,
-                  child: const TextComponent("Jadwal Pekerjaan"))
+                  child: const Image(image: AssetImage('assets/images/bg_home_staff.png'))),
+              Positioned(top: 0.1.h, left: 16, child: const TextComponent("Jadwal Pekerjaan"))
             ]),
             V(24),
-            const CorouselStaffComponent()
+            CorouselStaffComponent(
+              items: dataJadwal,
+              showItems: [
+                {"title": "Nama customer", "key": "nama_customer"},
+                {"title": "Layanan", "key": "layanan"},
+                {"title": "Alamat", "key": "alamat_lengkap"},
+              ],
+            )
           ],
         ),
       ),
