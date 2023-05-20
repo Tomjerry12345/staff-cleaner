@@ -10,7 +10,9 @@
             "type": "dart",
             "args": [
                 "--no-sound-null-safety"
-            ]
+            ],
+            "program": "lib/main.dart"
+            
         },
         {
             "name": "staff_cleaner (profile mode)",

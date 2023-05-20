@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:staff_cleaner/screens/admin/admin_main.dart';
 import 'package:staff_cleaner/screens/autentikasi/register/register_screen.dart';
+import 'package:staff_cleaner/services/firebase_services.dart';
 import 'package:staff_cleaner/values/screen_utils.dart';
 
 import '../../../component/button/button_component.dart';
@@ -10,7 +11,7 @@ import '../../../component/textfield/textfield_password_component.dart';
 import '../../../values/color.dart';
 import '../../../component/textfield/textfield_component.dart';
 import '../../../values/navigate_utils.dart';
-import '../../../values/notif_utils.dart';
+import '../../../values/output_utils.dart';
 import '../../../values/widget_utils.dart';
 import '../../staff/staff_main.dart';
 
@@ -21,6 +22,8 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
+
+    final fs = FirebaseServices();
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -63,18 +66,19 @@ class LoginScreen extends StatelessWidget {
                       child: ButtonElevatedComponent(
                     "Login",
                     onPressed: () async {
-                      final getEmail = emailController.text;
-                      final getPassword = passwordController.text;
+                      try {
+                        final getEmail = emailController.text;
+                        final getPassword = passwordController.text;
 
-                      print(getEmail);
-                      print(getPassword);
-
-                      if (getEmail == "admin" && getPassword == "555") {
-                        navigatePushAndRemove(const AdminMain());
-                      } else if (getEmail == "user" && getPassword == "555") {
-                        navigatePushAndRemove(const StaffMain());
-                      } else {
-                        showToast("email atau password salah");
+                        final res = await fs.signInWithEmailAndPassword(getEmail, getPassword);
+                        final user = res.user;
+                        if (user?.email == "admin@gmail.com") {
+                          navigatePushAndRemove(const AdminMain());
+                        } else {
+                          navigatePushAndRemove(const StaffMain());
+                        }
+                      } catch (e) {
+                        showToast(e.toString());
                       }
                     },
                   )),

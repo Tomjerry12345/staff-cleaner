@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../component/slider/corousel_admin_component.dart';
+import '../../../../../values/data_testing.dart';
+
 class SelesaiScreen extends StatefulWidget {
   const SelesaiScreen({super.key});
 
@@ -10,8 +13,20 @@ class SelesaiScreen extends StatefulWidget {
 class _SelesaiScreenState extends State<SelesaiScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [Text("selesai")],
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          CorouselAdminComponent(
+              items: dataJadwal,
+              showItems: [
+                {"title": "Nama customer", "key": "nama_customer"},
+                {"title": "Layanan", "key": "layanan"},
+                {"title": "Alamat", "key": "alamat_lengkap"},
+              ],
+              type: "selesai")
+        ],
+      ),
     );
   }
 }

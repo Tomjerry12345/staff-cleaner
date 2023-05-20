@@ -11,3 +11,7 @@ void showToast(msg) {
       textColor: Colors.white,
       fontSize: 16.0);
 }
+
+void logO(t, {String m = ""}) {
+  m == "" ? print("[d] $t") : print("[d] $t: $m");
+}

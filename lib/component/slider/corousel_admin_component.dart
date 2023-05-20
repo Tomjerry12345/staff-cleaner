@@ -12,7 +12,8 @@ import '../../values/color.dart';
 class CorouselAdminComponent extends StatefulWidget {
   final List<Map>? items;
   final List<Map>? showItems;
-  const CorouselAdminComponent({super.key, this.items, this.showItems});
+  final String type;
+  const CorouselAdminComponent({super.key, this.items, this.showItems, this.type = "jadwal"});
 
   @override
   State<CorouselAdminComponent> createState() => _CorouselAdminComponentState();
@@ -45,20 +46,21 @@ class _CorouselAdminComponentState extends State<CorouselAdminComponent> {
                         children: [
                           Align(
                             alignment: Alignment.topRight,
-                            child: Checkbox(
-                                value: checkedSelesai,
-                                onChanged: (bool? value) {
-                                  print("test");
-                                  setState(() {
-                                    checkedSelesai = value!;
-                                  });
-                                }),
+                            child: widget.type == "jadwal"
+                                ? Checkbox(
+                                    value: checkedSelesai,
+                                    onChanged: (bool? value) {
+                                      print("test");
+                                      setState(() {
+                                        checkedSelesai = value!;
+                                      });
+                                    })
+                                : Icon(Icons.check_circle_outline, color: primaryColor),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: widget.showItems!
-                                .map((e) =>
-                                    BodyCorousel(e["title"], item[e["key"]]))
+                                .map((e) => BodyCorousel(e["title"], item[e["key"]]))
                                 .toList(),
                           ),
                           Align(
@@ -80,8 +82,7 @@ class _CorouselAdminComponentState extends State<CorouselAdminComponent> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       TextComponent('Detail',
-                                          size: 16,
-                                          color: primaryColor), // <-- Text
+                                          size: 16, color: primaryColor), // <-- Text
                                       const SizedBox(
                                         width: 5,
                                       ),

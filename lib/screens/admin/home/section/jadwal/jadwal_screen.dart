@@ -25,6 +25,7 @@ class _JadwalScreenState extends State<JadwalScreen> {
               {"title": "Layanan", "key": "layanan"},
               {"title": "Alamat", "key": "alamat_lengkap"},
             ],
+            type: "jadwal",
           )
         ],
       ),

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:staff_cleaner/screens/admin/home/section/jadwal/jadwal_screen.dart';
+import 'package:staff_cleaner/screens/admin/home/section/selesai/selesai_screen.dart';
 import 'package:staff_cleaner/values/screen_utils.dart';
 
 import '../../../component/text/text_component.dart';
+import '../../../services/firebase_services.dart';
 import '../../../values/color.dart';
+import '../../../values/navigate_utils.dart';
 import '../../../values/widget_utils.dart';
+import '../../autentikasi/login/login_screen.dart';
 import '../list-user/list_user_staff.dart';
 
 class HomeAdminScreen extends StatefulWidget {
@@ -15,6 +19,7 @@ class HomeAdminScreen extends StatefulWidget {
 }
 
 class _HomeAdminScreenState extends State<HomeAdminScreen> {
+  final fs = FirebaseServices();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -24,10 +29,24 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
           appBar: AppBar(
             backgroundColor: primaryColor,
             elevation: 0,
-            toolbarHeight: 0.18.h,
-            title: TextComponent(
-              "Admin",
-              color: Colors.white,
+            toolbarHeight: 0.16.h,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextComponent(
+                  "Admin",
+                  color: Colors.white,
+                ),
+                Positioned(
+                    top: 0.06.h,
+                    left: 0.86.w,
+                    child: IconButton(
+                        onPressed: () {
+                          fs.signOut();
+                          navigatePushAndRemove(const LoginScreen());
+                        },
+                        icon: const Icon(Icons.logout))),
+              ],
             ),
             bottom: TabBar(
                 labelColor: Colors.black,
@@ -35,8 +54,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                 indicatorSize: TabBarIndicatorSize.label,
                 indicator: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10)),
+                        topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                     color: Colors.white),
                 tabs: [
                   Tab(
@@ -53,7 +71,10 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                   ),
                 ]),
           ),
-          body: TabBarView(children: [JadwalScreen(), ListUserStaff()])),
+          body: Padding(
+            padding: const EdgeInsets.only(top: 24),
+            child: TabBarView(children: [JadwalScreen(), SelesaiScreen()]),
+          )),
     );
   }
 }
