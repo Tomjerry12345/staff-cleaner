@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../component/slider/corousel_admin_component.dart';
 import '../../../../../component/slider/corousel_staff_component.dart';
-import '../../../../../values/data_testing.dart';
+import '../../../../../values/constant.dart';
 
 class JadwalScreen extends StatefulWidget {
   const JadwalScreen({super.key});

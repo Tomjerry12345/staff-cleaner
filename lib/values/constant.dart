@@ -22,3 +22,25 @@ final List<Map> dataJadwal = [
     "selesai": false,
   }
 ];
+
+final listItemDibershikan = {
+  "Deep Vacum": [
+    {"title": "Super King", "harga": 225000}
+  ],
+  "Standard": [
+    {"title": "Super King", "harga": 325000}
+  ],
+  "Premium + UV": [
+    {"title": "Super King", "harga": 425000}
+  ],
+  "Revive": [
+    {"title": "", "harga": 0}
+  ]
+};
+
+final listItemLayanan = [
+  {"title": "Deep Vacum"},
+  {"title": "Standard"},
+  {"title": "Premium + UV"},
+  {"title": "Revive"},
+];

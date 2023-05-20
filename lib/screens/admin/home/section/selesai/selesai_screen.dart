@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../component/slider/corousel_admin_component.dart';
-import '../../../../../values/data_testing.dart';
+import '../../../../../values/constant.dart';
 
 class SelesaiScreen extends StatefulWidget {
   const SelesaiScreen({super.key});

@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
 
   dynamic getData() async {
     try {
-      final user = fs.checkLogged();
+      final user = fs.getUser();
       if (user == null) {
         return navigatePushAndRemove(const LoginScreen());
       }

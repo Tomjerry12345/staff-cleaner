@@ -35,12 +35,13 @@ dependencies:
   firebase_auth: ^4.5.0
   cloud_firestore: ^4.6.0
   firebase_core: ^2.11.0
+  firebase_storage: ^11.2.1
   flutter_svg: ^2.0.5
   animated_notch_bottom_bar: ^0.0.6
   carousel_slider: ^4.2.1
   fluttertoast: ^8.0.9
   image_picker: ^0.8.7+5
-  firebase_storage: ^11.2.1
+  dropdown_textfield: ^1.0.8
 
 dev_dependencies:
   flutter_test:

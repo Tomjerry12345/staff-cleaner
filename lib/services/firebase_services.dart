@@ -11,7 +11,7 @@ class FirebaseServices {
   final _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  User? checkLogged() => _auth.currentUser;
+  User? getUser() => _auth.currentUser;
 
   Future<void> signOut() => _auth.signOut();
 

@@ -5,16 +5,19 @@ class TextfieldComponent extends StatelessWidget {
   final Function(String)? onChanged;
   final TextEditingController? controller;
   final Color color;
+  final TextInputType inputType;
   const TextfieldComponent(
       {super.key,
       this.hintText = "",
       this.onChanged,
       this.controller,
-      this.color = Colors.white70});
+      this.color = Colors.white70,
+      this.inputType = TextInputType.text});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      keyboardType: inputType,
       controller: controller,
       onChanged: onChanged,
       cursorColor: Colors.black,
