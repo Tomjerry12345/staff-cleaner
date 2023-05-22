@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:staff_cleaner/component/slider/component/body_corousel.dart';
 import 'package:staff_cleaner/component/text/text_component.dart';
@@ -75,7 +76,7 @@ import '../../values/color.dart';
 //     .toList();
 
 class CorouselStaffComponent extends StatelessWidget {
-  final List<Map>? items;
+  final List<QueryDocumentSnapshot<Map<String, dynamic>>>? items;
   final List<Map>? showItems;
   const CorouselStaffComponent({super.key, this.items, this.showItems});
 
@@ -109,8 +110,7 @@ class CorouselStaffComponent extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: showItems!
-                                .map((e) =>
-                                    BodyCorousel(e["title"], item[e["key"]]))
+                                .map((e) => BodyCorousel(e["title"], item[e["key"]]))
                                 .toList()
                             // BodyCorousel("Nama customer", "Monkey d luffy"),
                             // BodyCorousel(
@@ -123,14 +123,13 @@ class CorouselStaffComponent extends StatelessWidget {
                               alignment: Alignment.bottomRight,
                               child: TextButton(
                                 onPressed: () {
-                                  navigatePush(const DetailScreen());
+                                  // navigatePush(const DetailScreen());
                                 },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     TextComponent('Detail',
-                                        size: 16,
-                                        color: primaryColor), // <-- Text
+                                        size: 16, color: primaryColor), // <-- Text
                                     const SizedBox(
                                       width: 5,
                                     ),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:staff_cleaner/values/screen_utils.dart';
 import '../../../../component/button/button_component.dart';
@@ -10,7 +11,8 @@ import '../../../../values/navigate_utils.dart';
 import '../../../../values/widget_utils.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key});
+  final QueryDocumentSnapshot<Map<String, dynamic>> item;
+  const DetailScreen({super.key, required this.item});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -19,6 +21,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
+    final itemYgDibersihkan = widget.item["item_yang_dibersihkan"] as List<dynamic>;
     return Scaffold(
       body: Container(
         width: 1.0.w,
@@ -33,62 +36,54 @@ class _DetailScreenState extends State<DetailScreen> {
                 color: Colors.white,
               ),
               V(32),
-              const CardTextComponent("Nama lengkap", "test"),
+              CardTextComponent("Nama lengkap", widget.item["nama_lengkap"]),
               V(16),
-              const CardTextComponent("Tanggal lahir", "01/02/2023"),
+              CardTextComponent("Tanggal lahir", widget.item["tanggal_lahir"]),
               V(16),
-              const CardTextComponent("No. handphone", "085753845575"),
+              CardTextComponent("No. handphone", widget.item["no_hp"]),
               V(16),
-              const CardTextComponent("Layanan", "Deep Hydroallergic Vacuum"),
+              CardTextComponent("Staff Yang Melayani", widget.item["nama_staff"]),
               V(16),
-              const CardTextComponent("Tanggal layanan", "01/02/2023"),
+              CardTextComponent("Tanggal layanan", widget.item["tanggal_layanan"]),
               V(16),
-              const CardTextComponent("Jam layanan", "08:00"),
+              CardTextComponent("Jam layanan", widget.item["jam_layanan"]),
               V(16),
-              const TextComponent(
+              TextComponent(
                 "Item yang akan di bersihkan: ",
                 size: 18,
                 color: Colors.white,
               ),
               V(8),
-              Card(
-                elevation: 8,
-                clipBehavior: Clip.hardEdge,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 1.0.w,
-                    child: TextComponent(
-                      "1. kasur",
-                      size: 16,
-                      weight: Lato.Light,
-                    ),
-                  ),
-                ),
-              ),
-              V(8),
-              Card(
-                elevation: 8,
-                clipBehavior: Clip.hardEdge,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 1.0.w,
-                    child: TextComponent(
-                      "2. kursi",
-                      size: 16,
-                      weight: Lato.Light,
-                    ),
-                  ),
-                ),
+              Column(
+                children: itemYgDibersihkan
+                    .map((e) => Column(
+                          children: [
+                            Card(
+                              elevation: 8,
+                              clipBehavior: Clip.hardEdge,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: 1.0.w,
+                                  child: TextComponent(
+                                    "1. [${e["service"]}] ${e["item"]}",
+                                    size: 16,
+                                    weight: Lato.Light,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            V(8)
+                          ],
+                        ))
+                    .toList(),
               ),
               V(24),
-              const CardTextComponent("Daya", "2220 watt"),
+              CardTextComponent("Daya", "${widget.item["daya"]} watt"),
               V(16),
-              const CardTextComponent("Mengetahui yukbersihin dari ?", "instagram"),
+              CardTextComponent("Mengetahui yukbersihin dari ?", widget.item["mengetahui"]),
               V(16),
-              const CardTextComponent("Alamat lengkap",
-                  "Jl. Sunan Giri No.1, Rawamangun, Kec. Pulogadung, Kota Jakarta Timur, DKI Jakarta 13220"),
+              CardTextComponent("Alamat lengkap", widget.item["alamat_lengkap"]),
               V(32),
               Center(
                 child: LinkComponent(

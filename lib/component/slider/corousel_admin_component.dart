@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:staff_cleaner/component/slider/component/body_corousel.dart';
 import 'package:staff_cleaner/component/text/text_component.dart';
@@ -10,7 +11,7 @@ import 'package:staff_cleaner/values/screen_utils.dart';
 import '../../values/color.dart';
 
 class CorouselAdminComponent extends StatefulWidget {
-  final List<Map>? items;
+  final List<QueryDocumentSnapshot<Map<String, dynamic>>>? items;
   final List<Map>? showItems;
   final String type;
   const CorouselAdminComponent({super.key, this.items, this.showItems, this.type = "jadwal"});

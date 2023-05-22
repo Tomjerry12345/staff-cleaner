@@ -5,7 +5,7 @@ class TextfieldDropdownComponent extends StatelessWidget {
   final String hintText;
   final Function(Object?)? onChanged;
   final List<Map<String, String>>? items;
-  final TextEditingController? controller;
+  final SingleValueDropDownController? controller;
 
   const TextfieldDropdownComponent(
       {super.key, this.hintText = "", this.onChanged, this.items, this.controller});

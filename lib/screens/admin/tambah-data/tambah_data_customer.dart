@@ -1,3 +1,4 @@
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:staff_cleaner/component/textfield/textfield_date_component.dart';
 import 'package:staff_cleaner/values/screen_utils.dart';
@@ -27,7 +28,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
   final namaLengkapController = TextEditingController();
   final tanggalLahirController = TextEditingController();
   final noHpController = TextEditingController();
-  final staffController = TextEditingController();
+  final staffController = SingleValueDropDownController();
   final layananController = TextEditingController();
   final tanggalLayananController = TextEditingController();
   final jamLayananController = TextEditingController();
@@ -60,7 +61,6 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
 
   @override
   Widget build(BuildContext context) {
-    logO("itemYangDibersihkan", m: itemYangDibersihkan);
     return Scaffold(
       body: Container(
         width: 1.0.w,
@@ -105,12 +105,6 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
                 controller: staffController,
               ),
               V(16),
-              // TextfieldDropdownComponent(
-              //   hintText: "Layanan...",
-              //   onChanged: (value) {},
-              //   items: listItemLayanan,
-              // ),
-              // V(16),
               TextfieldDateComponent(
                   hintText: "Tanggal layanan...",
                   onChanged: (value) {},
@@ -264,7 +258,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
                       "nama_lengkap": namaLengkapController.text,
                       "tanggal_lahir": tanggalLahirController.text,
                       "no_hp": noHpController.text,
-                      "staff": staffController.text,
+                      "staff": staffController.dropDownValue?.value,
                       "layanan": layananController.text,
                       "tanggal_layanan": tanggalLayananController.text,
                       "jam_layanan": jamLayananController.text,

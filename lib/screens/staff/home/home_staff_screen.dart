@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:staff_cleaner/component/slider/corousel_staff_component.dart';
 import 'package:staff_cleaner/screens/autentikasi/login/login_screen.dart';
@@ -19,8 +20,10 @@ class HomeStaffScreen extends StatefulWidget {
 
 class _HomeStaffScreenState extends State<HomeStaffScreen> {
   final fs = FirebaseServices();
+
   @override
   Widget build(BuildContext context) {
+    final user = fs.getUser();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(
@@ -51,14 +54,25 @@ class _HomeStaffScreenState extends State<HomeStaffScreen> {
                   child: const TextComponent("Jadwal Pekerjaan", color: Colors.white))
             ]),
             V(24),
-            CorouselStaffComponent(
-              items: dataJadwal,
-              showItems: [
-                {"title": "Nama customer", "key": "nama_customer"},
-                {"title": "Layanan", "key": "layanan"},
-                {"title": "Alamat", "key": "alamat_lengkap"},
-              ],
-            )
+            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                stream: fs.getDataQueryStream("data", "email_staff", user?.email),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final data = snapshot.data!.docs;
+                    return CorouselStaffComponent(
+                      items: data,
+                      showItems: [
+                        {"title": "Nama customer", "key": "nama_lengkap"},
+                        {"title": "Nama Staff Yang bertugas", "key": "staff"},
+                        {"title": "Alamat", "key": "alamat_lengkap"},
+                      ],
+                    );
+                  }
+
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                })
           ],
         ),
       ),
