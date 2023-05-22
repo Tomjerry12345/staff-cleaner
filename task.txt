@@ -1,0 +1,11 @@
+23/05/2023
+
+- edit profil staff
+- checked work selesai
+- delete item customer
+- detail selesai fixed
+
+25/05/2023
+
+- show Map
+- implementation algorithm greedy

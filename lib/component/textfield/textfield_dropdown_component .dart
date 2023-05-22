@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TextfieldDropdownComponent extends StatelessWidget {
   final String hintText;
   final Function(Object?)? onChanged;
-  final List<Map<String, String>>? items;
+  final List<Map<dynamic, dynamic>>? items;
   final SingleValueDropDownController? controller;
 
   const TextfieldDropdownComponent(

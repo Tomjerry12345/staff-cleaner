@@ -5,7 +5,7 @@ import 'global_utils.dart';
 
 void showToast(msg) {
   Fluttertoast.showToast(
-      msg: msg,
+      msg: "$msg",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 1,
@@ -46,4 +46,22 @@ Future dialogList(
           ),
         );
       });
+}
+
+showLoaderDialog(BuildContext context) {
+  AlertDialog alert = AlertDialog(
+    content: Row(
+      children: [
+        const CircularProgressIndicator(),
+        Container(margin: const EdgeInsets.only(left: 7), child: const Text("Loading...")),
+      ],
+    ),
+  );
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

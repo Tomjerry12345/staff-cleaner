@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:staff_cleaner/values/screen_utils.dart';
 
 import '../../../../../component/button/button_component.dart';
-import '../../../../../component/button/link_component.dart';
-import '../../../../../component/text/card_text_component.dart';
 import '../../../../../component/text/text_component.dart';
 import '../../../../../component/textfield/textfield_component.dart';
 import '../../../../../component/textfield/textfield_date_component.dart';
@@ -41,8 +39,26 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
   final longController = TextEditingController();
 
   List<dynamic> itemYangDibersihkan = [];
+  List<Map<dynamic, dynamic>> listUser = [];
 
   final fs = FirebaseServices();
+
+  void getListUser() async {
+    try {
+      final res = await fs.getDataCollectionByQuery("staff", "bertugas", false);
+      if (res.isNotEmpty) {
+        List<Map<dynamic, dynamic>> user = [];
+        for (var e in res) {
+          user.add(e.data());
+        }
+        setState(() {
+          listUser = user;
+        });
+      }
+    } catch (e) {
+      logO("getListUser", m: e.toString());
+    }
+  }
 
   void addItemYangDibersihkan(Map item) {
     itemYangDibersihkan.add(item);
@@ -52,9 +68,11 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
     itemYangDibersihkan.remove(item);
   }
 
-  void uploadData(data) async {
+  void uploadData(data, String id, email) async {
     try {
-      await fs.addDataCollection("data", data);
+      logO("id", m: id);
+      await fs.updateDataAllDoc("data", id, data);
+      fs.updateDataCollectionByTwoQuery("staff", "email", email, "bertugas", true);
       navigatePushAndRemove(const AdminMain());
     } catch (e) {
       logO("error", m: e);
@@ -63,10 +81,13 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
 
   @override
   void initState() {
+    super.initState();
+
     namaLengkapController.text = widget.item["nama_lengkap"];
     tanggalLahirController.text = widget.item["tanggal_lahir"];
     noHpController.text = widget.item["no_hp"];
-    // staffController.dropDownValue?.value = widget.item["nama_staff"];
+    staffController.dropDownValue =
+        DropDownValueModel(name: widget.item["nama_staff"], value: widget.item["email_staff"]);
     tanggalLayananController.text = widget.item["tanggal_layanan"];
     jamLayananController.text = widget.item["jam_layanan"];
     dayaController.text = widget.item["daya"];
@@ -75,10 +96,11 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
     latController.text = widget.item["lokasi"]["latitude"];
     longController.text = widget.item["lokasi"]["longitude"];
 
+    getListUser();
+
     setState(() {
       itemYangDibersihkan = widget.item["item_yang_dibersihkan"] as List<dynamic>;
     });
-    super.initState();
   }
 
   @override
@@ -121,9 +143,8 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
               TextfieldDropdownComponent(
                 hintText: "Staff yang melayani...",
                 onChanged: (value) {},
-                items: [
-                  {"name": "Baco", "value": "baco"}
-                ],
+                items:
+                    listUser.map((e) => {"name": e["nama_lengkap"], "value": e["email"]}).toList(),
                 controller: staffController,
               ),
               V(16),
@@ -141,7 +162,7 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
                 type: "time",
               ),
               V(16),
-              TextComponent(
+              const TextComponent(
                 "Item yang akan di bersihkan: ",
                 size: 18,
                 color: Colors.white,
@@ -246,7 +267,7 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 0.4.w,
                     child: TextfieldComponent(
                       hintText: "Latitude...",
@@ -256,7 +277,7 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
                       inputType: TextInputType.number,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 0.4.w,
                     child: TextfieldComponent(
                         hintText: "Latitude...",
@@ -272,7 +293,25 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
                 child: ButtonElevatedComponent(
                   "Edit Data",
                   onPressed: () {
-                    navigatePop();
+                    final user = fs.getUser();
+                    final data = {
+                      "email": user?.email,
+                      "selesai": false,
+                      "nama_lengkap": namaLengkapController.text,
+                      "tanggal_lahir": tanggalLahirController.text,
+                      "no_hp": noHpController.text,
+                      "nama_staff": staffController.dropDownValue?.name,
+                      "email_staff": staffController.dropDownValue?.value,
+                      "tanggal_layanan": tanggalLayananController.text,
+                      "jam_layanan": jamLayananController.text,
+                      "item_yang_dibersihkan": itemYangDibersihkan,
+                      "daya": dayaController.text,
+                      "mengetahui": mengetahuiController.text,
+                      "alamat_lengkap": alamatLengkapController.text,
+                      "lokasi": {"latitude": latController.text, "longitude": longController.text},
+                    };
+
+                    uploadData(data, widget.item.id, staffController.dropDownValue?.value);
                   },
                 ),
               )

@@ -33,7 +33,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextComponent(
+                const TextComponent(
                   "Admin",
                   color: Colors.white,
                 ),
@@ -48,7 +48,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                         icon: const Icon(Icons.logout))),
               ],
             ),
-            bottom: TabBar(
+            bottom: const TabBar(
                 labelColor: Colors.black,
                 unselectedLabelColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.label,
@@ -71,8 +71,8 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                   ),
                 ]),
           ),
-          body: Padding(
-            padding: const EdgeInsets.only(top: 24),
+          body: const Padding(
+            padding: EdgeInsets.only(top: 24),
             child: TabBarView(children: [JadwalScreen(), SelesaiScreen()]),
           )),
     );

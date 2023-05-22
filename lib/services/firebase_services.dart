@@ -32,18 +32,42 @@ class FirebaseServices {
       _db.collection(collection).where(query, isEqualTo: value).snapshots();
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getDataCollection(
+      String collection) async {
+    final data = await _db.collection(collection).get();
+
+    return data.docs;
+  }
+
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getDataCollectionByQuery(
       String collection, String query, dynamic value) async {
     final data = await _db.collection(collection).where(query, isEqualTo: value).get();
 
     return data.docs;
   }
 
-  void updateDataCollection(String collection, String query, dynamic value) {
+  Future<void> updateDataAllDoc(String collection, String doc, data) async =>
+      _db.collection(collection).doc(doc).set(data);
+
+  Future<void> updateDataSpecifictDoc(String collection, String doc, data) async =>
+      _db.collection(collection).doc(doc).update(data);
+
+  void updateDataCollectionByQuery(String collection, String query, dynamic value) {
     _db
         .collection(collection)
         .where(query, isEqualTo: value)
         .get()
         .then((res) => res.docs[0].data().update(query, value));
+  }
+
+  void updateDataCollectionByTwoQuery(
+      String collection, String query, dynamic value, String query1, dynamic value1) async {
+    final res = await _db.collection(collection).where(query, isEqualTo: value).get();
+
+    final ref = res.docs[0].reference;
+
+    final batch = _db.batch();
+    batch.update(ref, {query1: value1});
+    batch.commit();
   }
 
   Future uploadFile(File file, String type) async {

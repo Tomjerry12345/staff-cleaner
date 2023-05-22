@@ -28,7 +28,7 @@ class _JadwalScreenState extends State<JadwalScreen> {
                   final data = snapshot.data!.docs;
                   return CorouselAdminComponent(
                     items: data,
-                    showItems: [
+                    showItems: const [
                       {"title": "Nama customer", "key": "nama_lengkap"},
                       {"title": "Nama Staff Yang bertugas", "key": "nama_staff"},
                       {"title": "Alamat", "key": "alamat_lengkap"},

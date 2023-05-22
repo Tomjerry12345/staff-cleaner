@@ -65,7 +65,7 @@ class _MainPageState extends State<MainPage> {
       if (user == null) {
         return navigatePushAndRemove(const LoginScreen());
       }
-      final res = await fs.getDataCollection("staff", "email", user.email);
+      final res = await fs.getDataCollectionByQuery("staff", "email", user.email);
       if (res.isEmpty) {
         return navigatePushAndRemove(const AdminMain());
       }

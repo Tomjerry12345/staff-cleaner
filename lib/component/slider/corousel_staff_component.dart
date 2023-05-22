@@ -111,19 +111,13 @@ class CorouselStaffComponent extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: showItems!
                                 .map((e) => BodyCorousel(e["title"], item[e["key"]]))
-                                .toList()
-                            // BodyCorousel("Nama customer", "Monkey d luffy"),
-                            // BodyCorousel(
-                            //     "Layanan", "Deep Hydroallergic Vacuum"),
-                            // BodyCorousel("Alamat",
-                            //     "Jl. Sunan Giri No.1, Rawamangun, Kec. Pulogadung, Kota Jakarta Timur, DKI Jakarta 13220"),
-                            ,
+                                .toList(),
                           ),
                           Align(
                               alignment: Alignment.bottomRight,
                               child: TextButton(
                                 onPressed: () {
-                                  // navigatePush(const DetailScreen());
+                                  navigatePush(DetailScreen(item: item));
                                 },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,

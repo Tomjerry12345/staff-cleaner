@@ -61,10 +61,13 @@ class _HomeStaffScreenState extends State<HomeStaffScreen> {
                     final data = snapshot.data!.docs;
                     return CorouselStaffComponent(
                       items: data,
-                      showItems: [
+                      showItems: const [
                         {"title": "Nama customer", "key": "nama_lengkap"},
-                        {"title": "Nama Staff Yang bertugas", "key": "staff"},
+                        {"title": "No Hp", "key": "no_hp"},
                         {"title": "Alamat", "key": "alamat_lengkap"},
+                        {"title": "Tanggal layanan", "key": "tanggal_layanan"},
+                        {"title": "Jam layanan", "key": "jam_layanan"},
+                        {"title": "Daya", "key": "daya"},
                       ],
                     );
                   }

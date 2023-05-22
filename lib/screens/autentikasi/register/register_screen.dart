@@ -94,6 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   V(0.02.h),
                   TextfieldComponent(
                     hintText: "No handphone...",
+                    inputType: TextInputType.phone,
                     onChanged: (value) {},
                     controller: noHpController,
                   ),
@@ -114,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                         String urlImage =
                             "https://www.seekpng.com/png/detail/17-176376_person-free-download-and-person-icon-png.png";
-                        if (getImage == null) {
+                        if (getImage != null) {
                           urlImage = await fs.uploadFile(getImage!, "images");
                         }
 
@@ -124,6 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           "nama_lengkap": namaLengkapController.text,
                           "no_hp": noHpController.text,
                           "tanggal_lahir": tanggalLahirController.text,
+                          "bertugas": false
                         };
 
                         await fs.addDataCollection("staff", data);

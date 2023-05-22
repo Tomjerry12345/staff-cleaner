@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:staff_cleaner/component/textfield/textfield_date_component.dart';
@@ -39,8 +40,26 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
   final longController = TextEditingController();
 
   List<Map<dynamic, dynamic>> itemYangDibersihkan = [];
+  List<Map<dynamic, dynamic>> listUser = [];
 
   final fs = FirebaseServices();
+
+  void getListUser() async {
+    try {
+      final res = await fs.getDataCollectionByQuery("staff", "bertugas", false);
+      if (res.isNotEmpty) {
+        List<Map<dynamic, dynamic>> user = [];
+        for (var e in res) {
+          user.add(e.data());
+        }
+        setState(() {
+          listUser = user;
+        });
+      }
+    } catch (e) {
+      logO("getListUser", m: e.toString());
+    }
+  }
 
   void addItemYangDibersihkan(Map item) {
     itemYangDibersihkan.add(item);
@@ -50,13 +69,22 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
     itemYangDibersihkan.remove(item);
   }
 
-  void uploadData(data) async {
+  void uploadData(data, String? email) async {
     try {
       await fs.addDataCollection("data", data);
+      fs.updateDataCollectionByTwoQuery("staff", "email", email, "bertugas", true);
       navigatePushAndRemove(const AdminMain());
     } catch (e) {
+      showToast(e);
       logO("error", m: e);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getListUser();
   }
 
   @override
@@ -70,7 +98,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              TextComponent(
+              const TextComponent(
                 "Tambah Data",
                 color: Colors.white,
               ),
@@ -99,9 +127,8 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
               TextfieldDropdownComponent(
                 hintText: "Staff yang melayani...",
                 onChanged: (value) {},
-                items: [
-                  {"name": "Baco", "value": "baco"}
-                ],
+                items:
+                    listUser.map((e) => {"name": e["nama_lengkap"], "value": e["email"]}).toList(),
                 controller: staffController,
               ),
               V(16),
@@ -119,7 +146,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
                 type: "time",
               ),
               V(16),
-              TextComponent(
+              const TextComponent(
                 "Item yang akan di bersihkan: ",
                 size: 18,
                 color: Colors.white,
@@ -250,16 +277,15 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
                 child: ButtonElevatedComponent(
                   "Tambah Data",
                   onPressed: () {
-                    // navigatePop();
                     final user = fs.getUser();
                     final data = {
                       "email": user?.email,
-                      "selesai": true,
+                      "selesai": false,
                       "nama_lengkap": namaLengkapController.text,
                       "tanggal_lahir": tanggalLahirController.text,
                       "no_hp": noHpController.text,
-                      "staff": staffController.dropDownValue?.value,
-                      "layanan": layananController.text,
+                      "nama_staff": staffController.dropDownValue?.name,
+                      "email_staff": staffController.dropDownValue?.value,
                       "tanggal_layanan": tanggalLayananController.text,
                       "jam_layanan": jamLayananController.text,
                       "item_yang_dibersihkan": itemYangDibersihkan,
@@ -269,7 +295,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
                       "lokasi": {"latitude": latController.text, "longitude": longController.text},
                     };
 
-                    uploadData(data);
+                    uploadData(data, staffController.dropDownValue?.value);
                   },
                 ),
               )
