@@ -8,9 +8,9 @@
             "name": "staff_cleaner",
             "request": "launch",
             "type": "dart",
-            "args": [
-                "--no-sound-null-safety"
-            ],
+            // "args": [
+            //     "--no-sound-null-safety"
+            // ],
             "program": "lib/main.dart"
             
         },

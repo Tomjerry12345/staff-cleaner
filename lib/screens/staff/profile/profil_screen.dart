@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:staff_cleaner/screens/staff/profile/component/section_data_profile.dart';
+import 'package:staff_cleaner/screens/staff/profile/section/edit-profile/edit_profile_screen.dart';
 import 'package:staff_cleaner/values/screen_utils.dart';
 
 import '../../../component/button/avatar_component.dart';
@@ -8,6 +9,7 @@ import '../../../component/button/button_component.dart';
 import '../../../component/text/text_component.dart';
 import '../../../services/firebase_services.dart';
 import '../../../values/font_custom.dart';
+import '../../../values/navigate_utils.dart';
 import '../../../values/output_utils.dart';
 import '../../../values/widget_utils.dart';
 
@@ -101,7 +103,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Center(
                                 child: ButtonElevatedComponent(
                                   "Edit Data",
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    navigatePush(EditPofileScreen(
+                                      data: data,
+                                    ));
+                                  },
                                 ),
                               ),
                               V(16),

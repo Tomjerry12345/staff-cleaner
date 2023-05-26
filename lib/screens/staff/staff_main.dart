@@ -6,16 +6,16 @@ import '../../component/bottom-bar/bottom_bar_staff_component.dart';
 import '../models/item_menu.dart';
 
 class StaffMain extends StatefulWidget {
-  const StaffMain({super.key});
+  final int initialPage;
+  const StaffMain({super.key, this.initialPage = 0});
 
   @override
   State<StaffMain> createState() => _StaffMainState();
 }
 
 class _StaffMainState extends State<StaffMain> {
-  final _pageController = PageController(initialPage: 0);
-
   int maxCount = 2;
+  PageController _controller = PageController(initialPage: 0);
 
   final List<ItemMenu> item = [
     ItemMenu(
@@ -33,8 +33,16 @@ class _StaffMainState extends State<StaffMain> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _controller = PageController(initialPage: widget.initialPage);
+    });
+  }
+
+  @override
   void dispose() {
-    _pageController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -42,14 +50,14 @@ class _StaffMainState extends State<StaffMain> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: PageView(
-          controller: _pageController,
+          controller: _controller,
           physics: const NeverScrollableScrollPhysics(),
           children: List.generate(bottomBarPages.length, (index) => bottomBarPages[index]),
         ),
         extendBody: true,
         bottomNavigationBar: (bottomBarPages.length <= maxCount)
             ? BottomBarStaffComponent(
-                pageController: _pageController,
+                pageController: _controller,
                 item: item,
               )
             : null);

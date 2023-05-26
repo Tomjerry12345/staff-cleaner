@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:staff_cleaner/component/slider/component/body_corousel.dart';
 import 'package:staff_cleaner/component/text/text_component.dart';
 import 'package:staff_cleaner/screens/admin/home/section/section/detail_jadwal_customer.dart';
-import 'package:staff_cleaner/screens/staff/home/detail/detail_screen.dart';
+import 'package:staff_cleaner/screens/staff/home/section/detail/detail_screen.dart';
 import 'package:staff_cleaner/values/navigate_utils.dart';
 import 'package:staff_cleaner/values/screen_utils.dart';
 
+import '../../services/firebase_services.dart';
 import '../../values/color.dart';
+import '../../values/output_utils.dart';
 
 class CorouselAdminComponent extends StatefulWidget {
   final List<QueryDocumentSnapshot<Map<String, dynamic>>>? items;
@@ -22,6 +24,7 @@ class CorouselAdminComponent extends StatefulWidget {
 
 class _CorouselAdminComponentState extends State<CorouselAdminComponent> {
   bool checkedSelesai = false;
+  final fs = FirebaseServices();
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
@@ -50,11 +53,15 @@ class _CorouselAdminComponentState extends State<CorouselAdminComponent> {
                             child: widget.type == "jadwal"
                                 ? Checkbox(
                                     value: checkedSelesai,
-                                    onChanged: (bool? value) {
-                                      print("test");
-                                      setState(() {
-                                        checkedSelesai = value!;
-                                      });
+                                    onChanged: (bool? value) async {
+                                      showLoaderDialog(context);
+                                      await fs.updateDataSpecifictDoc(
+                                          "data", item.id, {"selesai": false});
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.of(context, rootNavigator: true).pop();
+                                      // setState(() {
+                                      //   checkedSelesai = value!;
+                                      // });
                                     })
                                 : Icon(Icons.check_circle_outline, color: primaryColor),
                           ),
@@ -75,9 +82,13 @@ class _CorouselAdminComponentState extends State<CorouselAdminComponent> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    navigatePush(DetailJadwalCustomer(
-                                      item: item,
-                                    ));
+                                    widget.type == "jadwal"
+                                        ? navigatePush(DetailJadwalCustomer(
+                                            item: item,
+                                          ))
+                                        : navigatePush(DetailScreen(
+                                            item: item,
+                                          ));
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,

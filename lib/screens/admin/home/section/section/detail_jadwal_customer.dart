@@ -79,6 +79,17 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
     }
   }
 
+  void deleteData(String id, email) async {
+    try {
+      logO("id", m: id);
+      await fs.deleteDoc("data", id);
+      fs.updateDataCollectionByTwoQuery("staff", "email", email, "bertugas", false);
+      navigatePushAndRemove(const AdminMain());
+    } catch (e) {
+      logO("error", m: e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -312,6 +323,15 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
                     };
 
                     uploadData(data, widget.item.id, staffController.dropDownValue?.value);
+                  },
+                ),
+              ),
+              V(24),
+              Center(
+                child: ButtonElevatedComponent(
+                  "Delete Data",
+                  onPressed: () {
+                    deleteData(widget.item.id, widget.item["email_staff"]);
                   },
                 ),
               )

@@ -70,6 +70,9 @@ class FirebaseServices {
     batch.commit();
   }
 
+  Future<void> deleteDoc(String collection, String doc) async =>
+      _db.collection(collection).doc(doc).delete();
+
   Future uploadFile(File file, String type) async {
     String fileName = basename(file.path);
     final firebaseStorageRef = FirebaseStorage.instance.ref().child('$type/$fileName');

@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../component/slider/corousel_admin_component.dart';
-import '../../../../../component/slider/corousel_staff_component.dart';
 import '../../../../../services/firebase_services.dart';
-import '../../../../../values/constant.dart';
 
 class JadwalScreen extends StatefulWidget {
   const JadwalScreen({super.key});

@@ -71,6 +71,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
 
   void uploadData(data, String? email) async {
     try {
+      showLoaderDialog(context);
       await fs.addDataCollection("data", data);
       fs.updateDataCollectionByTwoQuery("staff", "email", email, "bertugas", true);
       navigatePushAndRemove(const AdminMain());
@@ -171,7 +172,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
                                         children: [
                                           TextComponent(
                                             "${i + 1}. [${e["service"]}] ${e["item"]}",
-                                            size: 16,
+                                            size: 11,
                                             weight: Lato.Light,
                                           ),
                                           IconButton(
@@ -258,7 +259,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
                       onChanged: (value) {},
                       color: Colors.white,
                       controller: latController,
-                      inputType: TextInputType.number,
+                      inputType: TextInputType.streetAddress,
                     ),
                   ),
                   Container(
@@ -268,7 +269,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
                         onChanged: (value) {},
                         color: Colors.white,
                         controller: longController,
-                        inputType: TextInputType.number),
+                        inputType: TextInputType.streetAddress),
                   ),
                 ],
               ),

@@ -1,14 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:staff_cleaner/screens/staff/home/section/detail/section/map/map_screen.dart';
 import 'package:staff_cleaner/values/screen_utils.dart';
-import '../../../../component/button/button_component.dart';
-import '../../../../component/button/link_component.dart';
-import '../../../../component/text/card_text_component.dart';
-import '../../../../component/text/text_component.dart';
-import '../../../../values/color.dart';
-import '../../../../values/font_custom.dart';
-import '../../../../values/navigate_utils.dart';
-import '../../../../values/widget_utils.dart';
+import '../../../../../component/button/button_component.dart';
+import '../../../../../component/button/link_component.dart';
+import '../../../../../component/text/card_text_component.dart';
+import '../../../../../component/text/text_component.dart';
+import '../../../../../values/color.dart';
+import '../../../../../values/font_custom.dart';
+import '../../../../../values/navigate_utils.dart';
+import '../../../../../values/output_utils.dart';
+import '../../../../../values/widget_utils.dart';
 
 class DetailScreen extends StatefulWidget {
   final QueryDocumentSnapshot<Map<String, dynamic>> item;
@@ -88,7 +90,10 @@ class _DetailScreenState extends State<DetailScreen> {
               Center(
                 child: LinkComponent(
                   "Lihat Lokasi >",
-                  onTap: () {},
+                  onTap: () {
+                    logO("widget.item", m: widget.item["lokasi"]);
+                    navigatePush(MapScreen(lokasi: widget.item["lokasi"]));
+                  },
                 ),
               ),
               V(32),

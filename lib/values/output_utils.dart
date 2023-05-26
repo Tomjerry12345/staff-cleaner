@@ -65,3 +65,7 @@ showLoaderDialog(BuildContext context) {
     },
   );
 }
+
+stopLoaderDialog(BuildContext context) {
+  Navigator.of(context, rootNavigator: true).pop();
+}
