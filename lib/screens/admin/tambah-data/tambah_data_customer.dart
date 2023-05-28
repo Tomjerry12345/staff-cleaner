@@ -265,7 +265,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
                   Container(
                     width: 0.4.w,
                     child: TextfieldComponent(
-                        hintText: "Latitude...",
+                        hintText: "Longitude...",
                         onChanged: (value) {},
                         color: Colors.white,
                         controller: longController,
