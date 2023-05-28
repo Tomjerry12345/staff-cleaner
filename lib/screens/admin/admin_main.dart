@@ -55,7 +55,7 @@ class _AdminMainState extends State<AdminMain> {
 
   @override
   Widget build(BuildContext context) {
-    return kunciUtils(Scaffold(
+    return Scaffold(
         resizeToAvoidBottomInset: false,
         body: bottomBarPages.elementAt(_selectedIndex),
         extendBody: true,
@@ -70,6 +70,6 @@ class _AdminMainState extends State<AdminMain> {
         bottomNavigationBar: BottomBarAdmin(
           selectedIndex: _selectedIndex,
           onItemTapped: _onItemTapped,
-        )));
+        ));
   }
 }

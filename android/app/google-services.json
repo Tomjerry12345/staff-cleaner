@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "1030539693888",
-    "project_id": "staff-cleaner",
-    "storage_bucket": "staff-cleaner.appspot.com"
+    "project_number": "401522117542",
+    "project_id": "staff-cleaner-34fc2",
+    "storage_bucket": "staff-cleaner-34fc2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1030539693888:android:41a36b474013150e0cf4a5",
+        "mobilesdk_app_id": "1:401522117542:android:705ba722bc23a87fe39d67",
         "android_client_info": {
           "package_name": "com.example.staff_cleaner"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1030539693888-ijv7trqj1v1fb9lq0a7bg2e3p6pa4jce.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC8HXy9M7i4GYvEOseV5vWnViNZSzq44V0"
+          "current_key": "AIzaSyBr9vYxKAe80uOOmDqp1H4Cxo35bPjMcOw"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1030539693888-ijv7trqj1v1fb9lq0a7bg2e3p6pa4jce.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

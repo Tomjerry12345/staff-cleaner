@@ -49,7 +49,7 @@ class _StaffMainState extends State<StaffMain> {
 
   @override
   Widget build(BuildContext context) {
-    return kunciUtils(Scaffold(
+    return Scaffold(
         body: PageView(
           controller: _controller,
           physics: const NeverScrollableScrollPhysics(),
@@ -61,6 +61,6 @@ class _StaffMainState extends State<StaffMain> {
                 pageController: _controller,
                 item: item,
               )
-            : null));
+            : null);
   }
 }

@@ -44,40 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBH7EeMY5A8GptMCRyeAsqfcZGfU75GaMI',
-    appId: '1:1030539693888:web:b3642df023c441330cf4a5',
-    messagingSenderId: '1030539693888',
-    projectId: 'staff-cleaner',
-    authDomain: 'staff-cleaner.firebaseapp.com',
-    storageBucket: 'staff-cleaner.appspot.com',
-    measurementId: 'G-DQGCYJ92BM',
+    apiKey: 'AIzaSyCTZpymeye6fXOt3789x5OSi66TXer_bSo',
+    appId: '1:401522117542:web:b3c884169bc7ea54e39d67',
+    messagingSenderId: '401522117542',
+    projectId: 'staff-cleaner-34fc2',
+    authDomain: 'staff-cleaner-34fc2.firebaseapp.com',
+    storageBucket: 'staff-cleaner-34fc2.appspot.com',
+    measurementId: 'G-2LJXHWWZHN',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC8HXy9M7i4GYvEOseV5vWnViNZSzq44V0',
-    appId: '1:1030539693888:android:41a36b474013150e0cf4a5',
-    messagingSenderId: '1030539693888',
-    projectId: 'staff-cleaner',
-    storageBucket: 'staff-cleaner.appspot.com',
+    apiKey: 'AIzaSyBr9vYxKAe80uOOmDqp1H4Cxo35bPjMcOw',
+    appId: '1:401522117542:android:705ba722bc23a87fe39d67',
+    messagingSenderId: '401522117542',
+    projectId: 'staff-cleaner-34fc2',
+    storageBucket: 'staff-cleaner-34fc2.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAQBzAmRn8kaINQu3wXkigs3ygsyEKDItI',
-    appId: '1:1030539693888:ios:26cb7ee933e5a8880cf4a5',
-    messagingSenderId: '1030539693888',
-    projectId: 'staff-cleaner',
-    storageBucket: 'staff-cleaner.appspot.com',
-    iosClientId: '1030539693888-49f2fdd98biemrev8n5abnu7dsvd2o4m.apps.googleusercontent.com',
+    apiKey: 'AIzaSyComkXiZU2GAyws9Ff93DHa5Qc-bVjhDls',
+    appId: '1:401522117542:ios:6c31f1b28083539be39d67',
+    messagingSenderId: '401522117542',
+    projectId: 'staff-cleaner-34fc2',
+    storageBucket: 'staff-cleaner-34fc2.appspot.com',
     iosBundleId: 'com.example.staffCleaner',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAQBzAmRn8kaINQu3wXkigs3ygsyEKDItI',
-    appId: '1:1030539693888:ios:26cb7ee933e5a8880cf4a5',
-    messagingSenderId: '1030539693888',
-    projectId: 'staff-cleaner',
-    storageBucket: 'staff-cleaner.appspot.com',
-    iosClientId: '1030539693888-49f2fdd98biemrev8n5abnu7dsvd2o4m.apps.googleusercontent.com',
+    apiKey: 'AIzaSyComkXiZU2GAyws9Ff93DHa5Qc-bVjhDls',
+    appId: '1:401522117542:ios:6c31f1b28083539be39d67',
+    messagingSenderId: '401522117542',
+    projectId: 'staff-cleaner-34fc2',
+    storageBucket: 'staff-cleaner-34fc2.appspot.com',
     iosBundleId: 'com.example.staffCleaner',
   );
 }

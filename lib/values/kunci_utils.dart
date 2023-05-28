@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../main.dart';
 import '../services/firebase_services.dart';
 
 StreamBuilder<DocumentSnapshot<Map<String, dynamic>>> kunciUtils(page) {
@@ -15,7 +14,7 @@ StreamBuilder<DocumentSnapshot<Map<String, dynamic>>> kunciUtils(page) {
           if (kunci == false) {
             return page;
           } else {
-            return const KunciPage();
+            // return const KunciPage();
           }
         }
 

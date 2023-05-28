@@ -36,35 +36,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: primaryColor,
       ),
-      home: kunciUtils(MainPage()),
+      home: MainPage(),
       navigatorKey: GlobalContext.navigatorKey,
       debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class KunciPage extends StatefulWidget {
-  const KunciPage({super.key});
-
-  @override
-  State<KunciPage> createState() => _KunciPageState();
-}
-
-class _KunciPageState extends State<KunciPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: primaryColor,
-        width: 1.0.w,
-        height: 1.0.h,
-        child: const Center(
-          child: TextComponent(
-            "Aplikasi  terkunci",
-            color: Colors.white,
-          ),
-        ),
-      ),
     );
   }
 }
@@ -94,19 +68,16 @@ class _MainPageState extends State<MainPage> {
   dynamic getData() async {
     try {
       final user = fs.getUser();
-      final docKunci = await fs.getDataDoc("kunci", "555");
 
-      if (docKunci["kunci"] == false) {
-        if (user == null) {
-          return navigatePushAndRemove(const LoginScreen());
-        }
-        final res = await fs.getDataCollectionByQuery("staff", "email", user.email);
-        if (res.isEmpty) {
-          return navigatePushAndRemove(const AdminMain());
-        }
-
-        return navigatePushAndRemove(const StaffMain());
+      if (user == null) {
+        return navigatePushAndRemove(const LoginScreen());
       }
+      final res = await fs.getDataCollectionByQuery("staff", "email", user.email);
+      if (res.isEmpty) {
+        return navigatePushAndRemove(const AdminMain());
+      }
+
+      return navigatePushAndRemove(const StaffMain());
     } catch (e) {
       logO("e", m: e.toString());
     }
