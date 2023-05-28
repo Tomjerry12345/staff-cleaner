@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:staff_cleaner/screens/admin/tambah-data/tambah_data_customer.dart';
 import 'package:staff_cleaner/values/navigate_utils.dart';
 
 import '../../component/bottom-bar/bottom_bar_admin_component.dart';
+import '../../main.dart';
+import '../../services/firebase_services.dart';
 import '../../values/color.dart';
+import '../../values/kunci_utils.dart';
 import '../models/item_menu.dart';
 import 'home/home_admin_screen.dart';
 import 'list-user/list_user_staff.dart';
@@ -20,6 +24,8 @@ class _AdminMainState extends State<AdminMain> {
   int _selectedIndex = 0;
 
   int maxCount = 2;
+
+  FirebaseServices fs = FirebaseServices();
 
   final List<ItemMenu> item = [
     ItemMenu(
@@ -49,7 +55,7 @@ class _AdminMainState extends State<AdminMain> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return kunciUtils(Scaffold(
         resizeToAvoidBottomInset: false,
         body: bottomBarPages.elementAt(_selectedIndex),
         extendBody: true,
@@ -64,6 +70,6 @@ class _AdminMainState extends State<AdminMain> {
         bottomNavigationBar: BottomBarAdmin(
           selectedIndex: _selectedIndex,
           onItemTapped: _onItemTapped,
-        ));
+        )));
   }
 }

@@ -110,6 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     "Daftar",
                     onPressed: () async {
                       try {
+                        showLoaderDialog(context);
                         await fs.registerWithEmailAndPassword(
                             emailController.text, passwordController.text);
 
@@ -131,6 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         await fs.addDataCollection("staff", data);
                         navigatePushAndRemove(const StaffMain());
                       } catch (e) {
+                        stopLoaderDialog(context);
                         showToast(e.toString());
                       }
                     },

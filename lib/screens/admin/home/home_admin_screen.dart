@@ -4,6 +4,7 @@ import 'package:staff_cleaner/screens/admin/home/section/selesai/selesai_screen.
 import 'package:staff_cleaner/values/screen_utils.dart';
 
 import '../../../component/text/text_component.dart';
+import '../../../main.dart';
 import '../../../services/firebase_services.dart';
 import '../../../values/color.dart';
 import '../../../values/navigate_utils.dart';
@@ -43,7 +44,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                     child: IconButton(
                         onPressed: () {
                           fs.signOut();
-                          navigatePushAndRemove(const LoginScreen());
+                          navigatePushAndRemove(LoginScreen());
                         },
                         icon: const Icon(Icons.logout))),
               ],

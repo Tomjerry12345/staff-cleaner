@@ -56,7 +56,9 @@ class _CorouselAdminComponentState extends State<CorouselAdminComponent> {
                                     onChanged: (bool? value) async {
                                       showLoaderDialog(context);
                                       await fs.updateDataSpecifictDoc(
-                                          "data", item.id, {"selesai": false});
+                                          "data", item.id, {"selesai": true});
+                                      fs.updateDataCollectionByTwoQuery(
+                                          "staff", "email", item["email_staff"], "bertugas", false);
                                       // ignore: use_build_context_synchronously
                                       Navigator.of(context, rootNavigator: true).pop();
                                       // setState(() {

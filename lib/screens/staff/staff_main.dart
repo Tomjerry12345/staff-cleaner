@@ -3,6 +3,7 @@ import 'package:staff_cleaner/screens/staff/home/home_staff_screen.dart';
 import 'package:staff_cleaner/screens/staff/profile/profil_screen.dart';
 
 import '../../component/bottom-bar/bottom_bar_staff_component.dart';
+import '../../values/kunci_utils.dart';
 import '../models/item_menu.dart';
 
 class StaffMain extends StatefulWidget {
@@ -48,7 +49,7 @@ class _StaffMainState extends State<StaffMain> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return kunciUtils(Scaffold(
         body: PageView(
           controller: _controller,
           physics: const NeverScrollableScrollPhysics(),
@@ -60,6 +61,6 @@ class _StaffMainState extends State<StaffMain> {
                 pageController: _controller,
                 item: item,
               )
-            : null);
+            : null));
   }
 }

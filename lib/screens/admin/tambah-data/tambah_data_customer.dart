@@ -172,7 +172,7 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
                                         children: [
                                           TextComponent(
                                             "${i + 1}. [${e["service"]}] ${e["item"]}",
-                                            size: 11,
+                                            size: 10,
                                             weight: Lato.Light,
                                           ),
                                           IconButton(

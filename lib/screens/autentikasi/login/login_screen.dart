@@ -10,6 +10,7 @@ import '../../../component/text/text_component.dart';
 import '../../../component/textfield/textfield_password_component.dart';
 import '../../../values/color.dart';
 import '../../../component/textfield/textfield_component.dart';
+import '../../../values/kunci_utils.dart';
 import '../../../values/navigate_utils.dart';
 import '../../../values/output_utils.dart';
 import '../../../values/widget_utils.dart';
@@ -67,6 +68,7 @@ class LoginScreen extends StatelessWidget {
                     "Login",
                     onPressed: () async {
                       try {
+                        showLoaderDialog(context);
                         final getEmail = emailController.text;
                         final getPassword = passwordController.text;
 
@@ -79,16 +81,17 @@ class LoginScreen extends StatelessWidget {
                         }
                       } catch (e) {
                         showToast(e.toString());
+                        stopLoaderDialog(context);
                       }
                     },
                   )),
                   V(0.04.h),
-                  Center(
-                      child: TextComponent(
-                    "Lupa password",
-                    size: 16,
-                    color: linkColor,
-                  )),
+                  // Center(
+                  //     child: TextComponent(
+                  //   "Lupa password",
+                  //   size: 16,
+                  //   color: linkColor,
+                  // )),
                   V(0.04.h),
                   const TextComponent(
                     "Belum punya akun ?",

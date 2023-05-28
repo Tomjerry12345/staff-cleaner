@@ -27,6 +27,9 @@ class FirebaseServices {
   Stream<QuerySnapshot<Map<String, dynamic>>> getDataStreamCollection(String collection) =>
       _db.collection(collection).snapshots();
 
+      Stream<DocumentSnapshot<Map<String, dynamic>>> getDataStreamDoc(String collection, String doc) =>
+      _db.collection(collection).doc(doc).snapshots();
+
   Stream<QuerySnapshot<Map<String, dynamic>>> getDataQueryStream(
           String collection, String query, dynamic value) =>
       _db.collection(collection).where(query, isEqualTo: value).snapshots();
@@ -36,6 +39,12 @@ class FirebaseServices {
     final data = await _db.collection(collection).get();
 
     return data.docs;
+  }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> getDataDoc(String collection, String doc) async {
+    final data = await _db.collection(collection).doc(doc).get();
+
+    return data;
   }
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getDataCollectionByQuery(

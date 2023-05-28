@@ -38,7 +38,7 @@ class _TextfieldDateComponentState extends State<TextfieldDateComponent> {
                     showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
-                      firstDate: DateTime(2000),
+                      firstDate: DateTime(1960),
                       lastDate: DateTime(2099),
                     ).then((date) {
                       //tambahkan setState dan panggil variabel _dateTime.

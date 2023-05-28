@@ -198,7 +198,7 @@ class _DetailJadwalCustomerState extends State<DetailJadwalCustomer> {
                                         children: [
                                           TextComponent(
                                             "${i + 1}. [${e["service"]}] ${e["item"]}",
-                                            size: 16,
+                                            size: 11,
                                             weight: Lato.Light,
                                           ),
                                           IconButton(

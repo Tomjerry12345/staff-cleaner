@@ -1,13 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:staff_cleaner/component/text/text_component.dart';
 import 'package:staff_cleaner/screens/admin/admin_main.dart';
-import 'package:staff_cleaner/screens/admin/home/home_admin_screen.dart';
 import 'package:staff_cleaner/screens/autentikasi/login/login_screen.dart';
-import 'package:staff_cleaner/screens/staff/home/home_staff_screen.dart';
 import 'package:staff_cleaner/screens/staff/staff_main.dart';
 import 'package:staff_cleaner/values/color.dart';
 import 'package:staff_cleaner/values/global_utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:staff_cleaner/values/kunci_utils.dart';
 import 'package:staff_cleaner/values/navigate_utils.dart';
 import 'package:staff_cleaner/values/output_utils.dart';
 import 'package:staff_cleaner/values/screen_utils.dart';
@@ -23,18 +23,48 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+// test
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    FirebaseServices fs = FirebaseServices();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: primaryColor,
       ),
-      home: MainPage(),
+      home: kunciUtils(MainPage()),
       navigatorKey: GlobalContext.navigatorKey,
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class KunciPage extends StatefulWidget {
+  const KunciPage({super.key});
+
+  @override
+  State<KunciPage> createState() => _KunciPageState();
+}
+
+class _KunciPageState extends State<KunciPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: primaryColor,
+        width: 1.0.w,
+        height: 1.0.h,
+        child: const Center(
+          child: TextComponent(
+            "Aplikasi  terkunci",
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -51,6 +81,8 @@ class _MainPageState extends State<MainPage> {
 
   Map<String, dynamic>? data;
 
+  String deskripsi = "";
+
   @override
   void initState() {
     super.initState();
@@ -62,15 +94,19 @@ class _MainPageState extends State<MainPage> {
   dynamic getData() async {
     try {
       final user = fs.getUser();
-      if (user == null) {
-        return navigatePushAndRemove(const LoginScreen());
-      }
-      final res = await fs.getDataCollectionByQuery("staff", "email", user.email);
-      if (res.isEmpty) {
-        return navigatePushAndRemove(const AdminMain());
-      }
+      final docKunci = await fs.getDataDoc("kunci", "555");
 
-      return navigatePushAndRemove(const StaffMain());
+      if (docKunci["kunci"] == false) {
+        if (user == null) {
+          return navigatePushAndRemove(const LoginScreen());
+        }
+        final res = await fs.getDataCollectionByQuery("staff", "email", user.email);
+        if (res.isEmpty) {
+          return navigatePushAndRemove(const AdminMain());
+        }
+
+        return navigatePushAndRemove(const StaffMain());
+      }
     } catch (e) {
       logO("e", m: e.toString());
     }
@@ -82,6 +118,9 @@ class _MainPageState extends State<MainPage> {
       color: primaryColor,
       width: 1.0.w,
       height: 1.0.h,
+      // child: Center(
+      //   child: TextComponent(deskripsi),
+      // ),
     );
   }
 }
