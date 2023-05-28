@@ -86,12 +86,12 @@ class LoginScreen extends StatelessWidget {
                     },
                   )),
                   V(0.04.h),
-                  // Center(
-                  //     child: TextComponent(
-                  //   "Lupa password",
-                  //   size: 16,
-                  //   color: linkColor,
-                  // )),
+                   Center(
+                       child: TextComponent(
+                     "Lupa password",
+                     size: 16,
+                     color: linkColor,
+                   )),
                   V(0.04.h),
                   const TextComponent(
                     "Belum punya akun ?",
