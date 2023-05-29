@@ -46,7 +46,8 @@ class _TambahDataCustomerState extends State<TambahDataCustomer> {
 
   void getListUser() async {
     try {
-      final res = await fs.getDataCollectionByQuery("staff", "bertugas", false);
+      // final res = await fs.getDataCollectionByQuery("staff", "bertugas", false);
+      final res = await fs.getDataCollection("staff");
       if (res.isNotEmpty) {
         List<Map<dynamic, dynamic>> user = [];
         for (var e in res) {

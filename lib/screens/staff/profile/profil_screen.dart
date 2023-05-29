@@ -55,16 +55,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             icon: Icons.add_photo_alternate,
                             colorIconBg: Colors.green,
                             onGetImage: (image) async {
-                              showLoaderDialog(context);
-                              final urlImage = await fs.uploadFile(image, "images");
+                              try {
+                                showLoaderDialog(context);
+                                final urlImage = await fs.uploadFile(image, "images");
 
-                              Map<String, dynamic> data1 = {
-                                "image": urlImage,
-                              };
-
-                              await fs.updateDataSpecifictDoc("staff", data.id, data1);
-                              // ignore: use_build_context_synchronously
-                              Navigator.of(context, rootNavigator: true).pop();
+                                await fs
+                                    .updateDataSpecifictDoc("staff", data.id, {"image": urlImage});
+                                // ignore: use_build_context_synchronously
+                                stopLoaderDialog(context);
+                              } catch (err) {
+                                logO("test", m: err);
+                                showToast(err);
+                                stopLoaderDialog(context);
+                              }
                             },
                           ),
                         ),

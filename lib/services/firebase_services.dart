@@ -27,7 +27,7 @@ class FirebaseServices {
   Stream<QuerySnapshot<Map<String, dynamic>>> getDataStreamCollection(String collection) =>
       _db.collection(collection).snapshots();
 
-      Stream<DocumentSnapshot<Map<String, dynamic>>> getDataStreamDoc(String collection, String doc) =>
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getDataStreamDoc(String collection, String doc) =>
       _db.collection(collection).doc(doc).snapshots();
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getDataQueryStream(
@@ -85,8 +85,8 @@ class FirebaseServices {
   Future uploadFile(File file, String type) async {
     String fileName = basename(file.path);
     final firebaseStorageRef = FirebaseStorage.instance.ref().child('$type/$fileName');
-    final uploadTask = firebaseStorageRef.putFile(file);
-    final taskSnapshot = uploadTask.snapshot.ref.getDownloadURL();
+    final uploadTask = await firebaseStorageRef.putFile(file);
+    final taskSnapshot = uploadTask.ref.getDownloadURL();
     return taskSnapshot;
   }
 }
