@@ -23,6 +23,8 @@ Future<Uint8List> makePdf(
 
   final qUser = await fs.getDataCollectionByQuery("staff", "email", user?.email);
 
+  final date = DateTime.now();
+
   pdf.addPage(
     Page(
       build: (context) {
@@ -44,10 +46,9 @@ Future<Uint8List> makePdf(
                 Text("Instagram   : @yukbersihin"),
               ]),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text("INVOICE", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 Text("No: $noSurat"),
                 V(8.0),
-                Text("Date           : 12/11/2023"),
+                Text("Date           : ${date.day}/${date.month}/${date.year}"),
                 Text("Customer   : ${item["nama_lengkap"]}"),
                 Text("Addres       :"),
                 Container(width: 170, child: Text("${item["alamat_lengkap"]}"))

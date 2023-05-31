@@ -10,6 +10,7 @@ import 'package:staff_cleaner/values/screen_utils.dart';
 import '../../screens/staff/home/section/nota/nota_staff_screen.dart';
 import '../../services/firebase_services.dart';
 import '../../values/color.dart';
+import '../../values/output_utils.dart';
 
 class CorouselStaffComponent extends StatelessWidget {
   final List<QueryDocumentSnapshot<Map<String, dynamic>>>? items;
@@ -18,6 +19,9 @@ class CorouselStaffComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final noSurat = TextEditingController();
+    final noSurat1 = TextEditingController();
+
     final fs = FirebaseServices();
     return CarouselSlider(
       options: CarouselOptions(
@@ -44,10 +48,18 @@ class CorouselStaffComponent extends StatelessWidget {
                             alignment: Alignment.topRight,
                             child: IconButton(
                               onPressed: () {
-                                var noSurat = "031/INV/YBS/121123";
+                                // var noSurat = "031/INV/YBS/121123";
                                 final user = fs.getUser();
-                                navigatePush(
-                                    NotaStaffScreen(noSurat: noSurat, item: item, user: user));
+
+                                showDialogNoSurat(context, noSurat, noSurat1, () {
+                                  navigatePush(NotaStaffScreen(
+                                      noSurat: "${noSurat.text}/INV/YBS/${noSurat1.text}",
+                                      item: item,
+                                      user: user));
+
+                                  noSurat.text = "";
+                                  noSurat1.text = "";
+                                });
                               },
                               icon: const Icon(Icons.speaker_notes),
                             ),

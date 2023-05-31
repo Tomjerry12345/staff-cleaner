@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -132,7 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         await fs.addDataCollection("staff", data);
                         navigatePushAndRemove(const StaffMain());
                       } catch (e) {
-                        stopLoaderDialog(context);
+                        closeDialog(context);
                         showToast(e.toString());
                       }
                     },

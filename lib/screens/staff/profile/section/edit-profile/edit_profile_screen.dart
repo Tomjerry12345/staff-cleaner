@@ -108,7 +108,7 @@ class _EditPofileScreenState extends State<EditPofileScreen> {
                         initialPage: 1,
                       ));
                     } catch (e) {
-                      stopLoaderDialog(context);
+                      closeDialog(context);
                       showToast(e.toString());
                     }
                   },

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:staff_cleaner/component/button/button_component.dart';
+import 'package:staff_cleaner/values/widget_utils.dart';
 
+import '../component/text/text_component.dart';
+import '../component/textfield/textfield_component.dart';
 import 'global_utils.dart';
 
 void showToast(msg) {
@@ -66,6 +70,54 @@ showLoaderDialog(BuildContext context) {
   );
 }
 
-stopLoaderDialog(BuildContext context) {
+showDialogNoSurat(BuildContext context, controller, controller1, onPressed) {
+  AlertDialog alert = AlertDialog(
+    content: Container(
+      height: 120,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // const CircularProgressIndicator(),
+          // Container(margin: const EdgeInsets.only(left: 7), child: const Text("Loading...")),
+          Row(
+            children: [
+              Container(
+                width: 60,
+                height: 50,
+                child: TextField(controller: controller, keyboardType: TextInputType.number),
+              ),
+              H(16),
+              TextComponent("/INV", size: 16),
+              TextComponent("/YBS/", size: 16),
+              H(16),
+              Container(
+                width: 60,
+                height: 50,
+                child: TextField(
+                  controller: controller1,
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+            ],
+          ),
+          V(16),
+          ButtonElevatedComponent("Ok", onPressed: () {
+            Navigator.of(context).pop();
+            onPressed();
+          })
+        ],
+      ),
+    ),
+  );
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+closeDialog(BuildContext context) {
   Navigator.of(context, rootNavigator: true).pop();
 }

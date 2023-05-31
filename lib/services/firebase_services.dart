@@ -33,6 +33,13 @@ class FirebaseServices {
   Stream<QuerySnapshot<Map<String, dynamic>>> getDataQueryStream(
           String collection, String query, dynamic value) =>
       _db.collection(collection).where(query, isEqualTo: value).snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getDataTwoQueryStream(
+          String collection, String query, dynamic value, String query1, dynamic value1) =>
+      _db
+          .collection(collection)
+          .where(query, isEqualTo: value)
+          .where(query1, isEqualTo: value1)
+          .snapshots();
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getDataCollection(
       String collection) async {

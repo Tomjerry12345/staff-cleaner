@@ -62,11 +62,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 await fs
                                     .updateDataSpecifictDoc("staff", data.id, {"image": urlImage});
                                 // ignore: use_build_context_synchronously
-                                stopLoaderDialog(context);
+                                closeDialog(context);
                               } catch (err) {
                                 logO("test", m: err);
                                 showToast(err);
-                                stopLoaderDialog(context);
+                                closeDialog(context);
                               }
                             },
                           ),
